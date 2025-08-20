@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexBuy - Modern Online Shopping</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #ff006e;
+            --accent: #8338ec;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffbe0b;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding-top: 80px;
+        }
+        
+        .navbar {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(58, 134, 255, 0.9) 0%, rgba(131, 56, 236, 0.85) 100%), url('https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 60px;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(58, 134, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.6);
+        }
+        
+        .btn-accent {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--warning) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 110, 0.6);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            bottom: -15px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .section-title.center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background: white;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        
+        .badge-trending {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--warning) 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .original-price {
+            color: #6c757d;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: var(--warning);
+        }
+        
+        .category-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            height: 200px;
+        }
+        
+        .category-card img {
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            margin: 15px;
+        }
+        
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #2c3e50 100%);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .newsletter-form {
+            position: relative;
+        }
+        
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 25px;
+            width: 100%;
+        }
+        
+        .newsletter-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .newsletter-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 7px 20px;
+        }
+        
+        .modal-content {
+            border-radius: 20px;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .form-control {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.25);
+        }
+        
+        .auth-form {
+            padding: 30px;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .divider::before {
+            margin-right: 10px;
+        }
+        
+        .divider::after {
+            margin-left: 10px;
+        }
+        
+        .btn-social {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        
+        .btn-google {
+            background: #db4437;
+            color: white;
+        }
+        
+        .btn-facebook {
+            background: #4267B2;
+            color: white;
+        }
+        
+        .btn-apple {
+            background: #000;
+            color: white;
+        }
+        
+        /* Swiper styles */
+        .swiper {
+            width: 100%;
+            padding: 30px 10px 60px;
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: var(--primary) !important;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--primary) !important;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .swiper-button-next, .swiper-button-prev {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shopping-bag me-2"></i>NexBuy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Deals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="input-group me-3 d-none d-md-flex">
+                        <input type="text" class="form-control" placeholder="Search products...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#authModal">
+                        <i class="fas fa-user me-1"></i> Account
+                    </a>
+                    <a href="#" class="btn btn-primary position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-4">Summer Collection 2023</h1>
+                <p class="lead mb-4">Discover the latest trends and get up to 50% off on selected items. Free shipping on orders over $50.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#" class="btn btn-accent">Shop Now <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="#" class="btn btn-outline-light">Explore Deals</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="container mb-5">
+        <h2 class="section-title center">Shop By Category</h2>
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Fashion">
+                    <div class="category-overlay">
+                        <h5 class="mb-0">Fashion</h5>
+                        <small>200+ Products</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Electronics">
+                    <div class="category-overlay">
+                        <h5 class="mb-0">Electronics</h5>
+                        <small>150+ Products</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Home">
+                    <div class="category-overlay">
+                        <h5 class="mb-0">Home & Kitchen</h5>
+                        <small>80+ Products</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Beauty">
+                    <div class="category-overlay">
+                        <h5 class="mb-0">Beauty</h5>
+                        <small>120+ Products</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Slider -->
+    <section class="container mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title">Featured Products</h2>
+            <a href="#" class="btn btn-outline-primary">View All <i class="fas fa-arrow-right ms-2"></i></a>
+        </div>
+        
+        <!-- Swiper slider -->
+        <div class="swiper featuredSwiper">
+            <div class="swiper-wrapper">
+                <!-- Product 1 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <div class="position-relative">
+                            <span class="badge-trending">TRENDING</span>
+                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Smart Watch">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="ms-1">(128)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">Smart Watch Pro</h5>
+                            <p class="card-text text-muted">Premium smartwatch with health monitoring</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$199.99</span>
+                                    <span class="original-price ms-2">$249.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Running Shoes">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="ms-1">(86)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">Running Shoes</h5>
+                            <p class="card-text text-muted">Comfortable running shoes with cushioning</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$89.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <div class="position-relative">
+                            <span class="badge-trending">SALE</span>
+                            <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Headphones">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="ms-1">(215)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">Wireless Headphones</h5>
+                            <p class="card-text text-muted">Noise cancelling with 30hr battery life</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$129.99</span>
+                                    <span class="original-price ms-2">$149.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Headphones">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="ms-1">(142)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">Wireless Earbuds</h5>
+                            <p class="card-text text-muted">Premium sound quality with comfortable fit</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$79.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <div class="position-relative">
+                            <span class="badge-trending">NEW</span>
+                            <img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Laptop">
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="ms-1">(312)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">Ultrabook Pro</h5>
+                            <p class="card-text text-muted">Thin and light laptop for professionals</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$1299.99</span>
+                                    <span class="original-price ms-2">$1499.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="swiper-slide">
+                    <div class="product-card card">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FtZXJhfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=80" class="card-img-top product-img" alt="Camera">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span class="ms-1">(187)</span>
+                                </div>
+                                <a href="#" class="text-danger"><i class="far fa-heart"></i></a>
+                            </div>
+                            <h5 class="card-title">DSLR Camera</h5>
+                            <p class="card-text text-muted">Professional camera with 4K video</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="price">$899.99</span>
+                                </div>
+                                <a href="#" class="btn btn-primary btn-sm rounded-circle"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="container mb-5">
+        <div class="bg-primary text-white rounded-4 p-5 position-relative overflow-hidden">
+            <div class="position-absolute top-0 end-0 w-100 h-100">
+                <div class="position-absolute" style="top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255, 255, 255, 0.15);"></div>
+                <div class="position-absolute" style="top: 80px; right: 50px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255, 255, 255, 0.1);"></div>
+            </div>
+            <div class="row align-items-center position-relative">
+                <div class="col-md-8">
+                    <h2 class="fw-bold">Special Offer - Limited Time!</h2>
+                    <p class="lead">Get 30% off on all electronics. Use code: ELECTRO30</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-white text-primary rounded-3 p-2 me-3">
+                            <h4 class="mb-0 fw-bold">24</h4>
+                            <small>Hours</small>
+                        </div>
+                        <div class="bg-white text-primary rounded-3 p-2 me-3">
+                            <h4 class="mb-0 fw-bold">45</h4>
+                            <small>Minutes</small>
+                        </div>
+                        <div class="bg-white text-primary rounded-3 p-2">
+                            <h4 class="mb-0 fw-bold">18</h4>
+                            <small>Seconds</small>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-accent">Shop Electronics</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h3 class="display-3 fw-bold">30% OFF</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Slider -->
+    <section class="container mb-5">
+        <h2 class="section-title center">What Our Customers Say</h2>
+        
+        <!-- Swiper slider -->
+        <div class="swiper testimonialSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="User" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Sarah Johnson</h5>
+                                <small class="text-muted">Verified Buyer</small>
+                            </div>
+                        </div>
+                        <div class="rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-0">"The shopping experience was fantastic! Fast delivery and the product quality exceeded my expectations."</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Michael Chen</h5>
+                                <small class="text-muted">Verified Buyer</small>
+                            </div>
+                        </div>
+                        <div class="rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="mb-0">"Great prices and amazing customer service. Will definitely shop here again!"</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Emma Rodriguez</h5>
+                                <small class="text-muted">Verified Buyer</small>
+                            </div>
+                        </div>
+                        <div class="rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-0">"The product selection is incredible, and the website is so easy to use. Highly recommend!"</p>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">James Wilson</h5>
+                                <small class="text-muted">Verified Buyer</small>
+                            </div>
+                        </div>
+                        <div class="rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="mb-0">"The return process was hassle-free, and customer support was very helpful. Great store!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5">
+                    <h3 class="footer-title">NexBuy</h3>
+                    <p class="mb-4">The best online shopping experience with a wide range of products, secure payment, and fast delivery.</p>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <a href="#" class="footer-link">Home</a>
+                    <a href="#" class="footer-link">Products</a>
+                    <a href="#" class="footer-link">Categories</a>
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-5">
+                    <h5 class="footer-title">Customer Service</h5>
+                    <a href="#" class="footer-link">FAQ</a>
+                    <a href="#" class="footer-link">Returns</a>
+                    <a href="#" class="footer-link">Shipping</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms & Conditions</a>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-5">
+                    <h5 class="footer-title">Newsletter</h5>
+                    <p class="mb-4">Subscribe to our newsletter for updates and offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="text-center">
+                <p>&copy; 2023 NexBuy. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="login-tab">Login</div>
+                    <div class="auth-tab" id="register-tab">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <div class="auth-form" id="login-form">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                            <div class="invalid-feedback">Please enter your password</div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                            <a href="#" class="float-end text-decoration-none">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                    </form>
+                    
+                    <div class="divider">or continue with</div>
+                    
+                    <div class="text-center">
+                        <a href="#" class="btn btn-social btn-google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="btn btn-social btn-facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-social btn-apple"><i class="fab fa-apple"></i></a>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p>Don't have an account? <a href="#" class="text-decoration-none" id="switch-to-register">Register</a></p>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="auth-form d-none" id="register-form">
+                    <form id="registerForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                                <div class="invalid-feedback">Please enter your first name</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                                <div class="invalid-feedback">Please enter your last name</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                            <div class="invalid-feedback">Password must be at least 8 characters</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <div class="invalid-feedback">Passwords do not match</div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="termsAgree" required>
+                            <label class="form-check-label" for="termsAgree">I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a></label>
+                            <div class="invalid-feedback">You must agree to the terms</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                    </form>
+                    
+                    <div class="divider">or continue with</div>
+                    
+                    <div class="text-center">
+                        <a href="#" class="btn btn-social btn-google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="btn btn-social btn-facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-social btn-apple"><i class="fab fa-apple"></i></a>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a href="#" class="text-decoration-none" id="switch-to-login">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Initialize Swiper sliders
+            var featuredSwiper = new Swiper(".featuredSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 25,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                    },
+                },
+            });
+            
+            var testimonialSwiper = new Swiper(".testimonialSwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                },
+            });
+            
+            // Auth tab switching
+            $('#login-tab').on('click', function() {
+                $('#login-tab').addClass('active');
+                $('#register-tab').removeClass('active');
+                $('#login-form').removeClass('d-none');
+                $('#register-form').addClass('d-none');
+            });
+            
+            $('#register-tab').on('click', function() {
+                $('#register-tab').addClass('active');
+                $('#login-tab').removeClass('active');
+                $('#register-form').removeClass('d-none');
+                $('#login-form').addClass('d-none');
+            });
+            
+            $('#switch-to-register').on('click', function(e) {
+                e.preventDefault();
+                $('#register-tab').click();
+            });
+            
+            $('#switch-to-login').on('click', function(e) {
+                e.preventDefault();
+                $('#login-tab').click();
+            });
+            
+            // Login form validation
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Email validation
+                const email = $('#loginEmail');
+                if (!email.val() || !isValidEmail(email.val())) {
+                    email.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    email.removeClass('is-invalid');
+                }
+                
+                // Password validation
+                const password = $('#loginPassword');
+                if (!password.val()) {
+                    password.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    password.removeClass('is-invalid');
+                }
+                
+                if (isValid) {
+                    // Simulate successful login
+                    alert('Login successful! Redirecting...');
+                    $('#authModal').modal('hide');
+                    this.reset();
+                }
+            });
+            
+            // Register form validation
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // First name validation
+                const firstName = $('#firstName');
+                if (!firstName.val()) {
+                    firstName.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    firstName.removeClass('is-invalid');
+                }
+                
+                // Last name validation
+                const lastName = $('#lastName');
+                if (!lastName.val()) {
+                    lastName.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    lastName.removeClass('is-invalid');
+                }
+                
+                // Email validation
+                const email = $('#registerEmail');
+                if (!email.val() || !isValidEmail(email.val())) {
+                    email.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    email.removeClass('is-invalid');
+                }
+                
+                // Password validation
+                const password = $('#registerPassword');
+                if (!password.val() || password.val().length < 8) {
+                    password.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    password.removeClass('is-invalid');
+                }
+                
+                // Confirm password validation
+                const confirmPassword = $('#confirmPassword');
+                if (!confirmPassword.val() || confirmPassword.val() !== password.val()) {
+                    confirmPassword.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    confirmPassword.removeClass('is-invalid');
+                }
+                
+                // Terms agreement validation
+                const terms = $('#termsAgree');
+                if (!terms.is(':checked')) {
+                    terms.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    terms.removeClass('is-invalid');
+                }
+                
+                if (isValid) {
+                    // Simulate successful registration
+                    alert('Registration successful! You can now login.');
+                    $('#authModal').modal('hide');
+                    this.reset();
+                }
+            });
+            
+            // Helper function for email validation
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Clear validation on input
+            $('input').on('input', function() {
+                $(this).removeClass('is-invalid');
+            });
+            
+            // Add to cart animation
+            $('.btn-primary.btn-sm').on('click', function(e) {
+                e.preventDefault();
+                const btn = $(this);
+                btn.html('<i class="fas fa-check"></i>');
+                btn.removeClass('btn-primary').addClass('btn-success');
+                
+                setTimeout(function() {
+                    btn.html('<i class="fas fa-plus"></i>');
+                    btn.removeClass('btn-success').addClass('btn-primary');
+                }, 1500);
+            });
+            
+            // Add to wishlist
+            $('.fa-heart').on('click', function(e) {
+                e.preventDefault();
+                $(this).toggleClass('far fas text-danger');
+            });
+        });
+    </script>
+</body>
+</html>
